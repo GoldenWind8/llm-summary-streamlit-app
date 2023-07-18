@@ -123,7 +123,7 @@ def recommendations(text, llm):
     # get a chat completion from the formatted messages
     prompt = chat_prompt.format_prompt(text=text).to_messages()
     summary = llm(prompt)
-    return summary
+    return summary.content
 
 
 if __name__ == '__main__':
