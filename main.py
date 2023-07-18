@@ -99,10 +99,7 @@ def validate_input(file_or_transcript, api_key, use_gpt_4):
 
 
 def final_summary(text, llm):
-    prompt = PromptTemplate(
-        input_variables=["text"],
-        template=final_summary,
-    )
+    prompt = PromptTemplate.from_template(final_summary)
     summary_prompt = prompt.format(text=text)
     summary = llm(summary_prompt)
     return summary

@@ -110,15 +110,6 @@ def create_temp_file(uploaded_file):
 
 
 def create_chat_model(api_key, use_gpt_4):
-    """
-    Create a chat model ensuring that the token limit of the overall summary is not exceeded - GPT-4 has a higher token limit.
-
-    :param api_key: The OpenAI API key to use for the chat model.
-
-    :param use_gpt_4: Whether to use GPT-4 or not.
-
-    :return: A chat model.
-    """
     if use_gpt_4:
         return ChatOpenAI(openai_api_key=api_key, temperature=0, max_tokens=500, model_name='gpt-4')
     else:
