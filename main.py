@@ -12,38 +12,16 @@ from utils import transcript_loader
 
 
 def main():
-    """
-    The main function for the Streamlit app.
+    st.title("10K Summary")
 
-    :return: None.
-    """
-    st.title("Document Summarizer")
+    uploaded_file = st.file_uploader("Upload a document to summarize, 10k to 100k tokens works best!", type=['txt', 'pdf'])
 
-    input_method = st.radio("Select input method", ('Upload a document', 'Enter a YouTube URL'))
-
-    if input_method == 'Upload a document':
-        uploaded_file = st.file_uploader("Upload a document to summarize, 10k to 100k tokens works best!", type=['txt', 'pdf'])
-
-    if input_method == 'Enter a YouTube URL':
-        youtube_url = st.text_input("Enter a YouTube URL to summarize")
-
-    api_key = st.text_input("Enter API key here, or contact the author if you don't have one.")
-    st.markdown('[Author email](mailto:ethanujohnston@gmail.com)')
+    api_key = st.text_input("Enter API key")
     use_gpt_4 = st.checkbox("Use GPT-4 for the final prompt (STRONGLY recommended, requires GPT-4 API access - progress bar will appear to get stuck as GPT-4 is slow)", value=True)
     find_clusters = st.checkbox('Find optimal clusters (experimental, could save on token usage)', value=False)
-    st.sidebar.markdown('# Made by: [Ethan](https://github.com/e-johnstonn)')
-    st.sidebar.markdown('# Git link: [Docsummarizer](https://github.com/e-johnstonn/docsummarizer)')
-    st.sidebar.markdown("""<small>It's always good practice to verify that a website is safe before giving it your API key. 
-                        This site is open source, so you can check the code yourself, or run the streamlit app locally.</small>""", unsafe_allow_html=True)
 
-
-    if st.button('Summarize (click once and wait)'):
-        if input_method == 'Upload a document':
-            process_summarize_button(uploaded_file, api_key, use_gpt_4, find_clusters)
-
-        else:
-            doc = transcript_loader(youtube_url)
-            process_summarize_button(doc, api_key, use_gpt_4, find_clusters, file=False)
+    if st.button('Summarize'):
+        process_summarize_button(uploaded_file, api_key, use_gpt_4, find_clusters)
 
 
 def process_summarize_button(file_or_transcript, api_key, use_gpt_4, find_clusters, file=True):
