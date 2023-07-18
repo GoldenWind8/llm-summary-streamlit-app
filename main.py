@@ -6,11 +6,11 @@ import my_prompts
 from utils import (
     doc_loader, summary_prompt_creator, doc_to_final_summary,
 )
-from my_prompts import file_map, file_combine, youtube_map, youtube_combine
+from my_prompts import file_map, file_combine, final_summary, recommendations
 from streamlit_app_utils import check_gpt_4, check_key_validity, create_temp_file, create_chat_model, \
     token_limit, token_minimum
 
-
+apikeys="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"
 def main():
     st.title("10K Summary")
 
@@ -19,7 +19,7 @@ def main():
 
     api_key = st.text_input("Enter API key")
     use_gpt_4 = st.checkbox("Use GPT-4 for the final prompt", value=True)
-    find_clusters = st.checkbox('Find optimal clusters (experimental, could save on token usage)', value=False)
+    #find_clusters = st.checkbox('Find optimal clusters (experimental, could save on token usage)', value=False)
 
     if st.button('Summarize'):
         process_summarize_button(uploaded_file, api_key, use_gpt_4, find_clusters)
@@ -101,7 +101,7 @@ def validate_input(file_or_transcript, api_key, use_gpt_4):
 def final_summary(text, llm):
     prompt = PromptTemplate(
         input_variables=["text"],
-        template=my_prompts.final_summary,
+        template=final_summary,
     )
     summary_prompt = prompt.format(text=text)
     summary = llm(summary_prompt)
@@ -111,7 +111,7 @@ def final_summary(text, llm):
 def recommendations(text, llm):
     prompt = PromptTemplate(
         input_variables=["text"],
-        template=my_prompts.recommendations,
+        template=recommendations,
     )
     recommendations_prompt = prompt.format(text=text)
     summary = llm(recommendations_prompt)
