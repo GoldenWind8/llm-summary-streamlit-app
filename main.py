@@ -110,7 +110,7 @@ def final_summary(text, llm):
     # get a chat completion from the formatted messages
     prompt = chat_prompt.format_prompt(text=text).to_messages()
     summary = llm(prompt)
-    return summary
+    return summary.content
 
 
 def recommendations(text, llm):
