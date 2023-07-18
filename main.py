@@ -58,7 +58,7 @@ def process_summarize_button(file_or_transcript, api_key, use_gpt_4, find_cluste
             summary = doc_to_final_summary(doc, 10, initial_prompt_list, final_prompt_list, api_key, use_gpt_4)
 
         # Additional summary for GPT-4
-        st.markdown(summary, unsafe_allow_html=True)
+        #st.markdown(summary, unsafe_allow_html=True) #This is the longer summary
 
         # Create another summary
         st.markdown("## Summary")
