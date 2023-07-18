@@ -23,7 +23,7 @@ Format in HTML. Text should be divided into paragraphs. Paragraphs should be ind
 """
 
 final_summary_template = """
-Please summarize the key points in the following text
+Please summarize and list the key points in the following text
 
 TEXT:
 {text}
