@@ -22,14 +22,14 @@ Format in HTML. Text should be divided into paragraphs. Paragraphs should be ind
 
 """
 
-final_summary = """
+final_summary_template = """
 Please summarize the key points in the following text
 
 TEXT:
 {text}
 """
 
-recommendations = """
+recommendations_template = """
 List investment recommendations based on this text
 
 TEXT:

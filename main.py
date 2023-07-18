@@ -6,7 +6,7 @@ import my_prompts
 from utils import (
     doc_loader, summary_prompt_creator, doc_to_final_summary,
 )
-from my_prompts import file_map, file_combine, final_summary, recommendations
+from my_prompts import file_map, file_combine, final_summary_template, recommendations_template
 from streamlit_app_utils import check_gpt_4, check_key_validity, create_temp_file, create_chat_model, \
     token_limit, token_minimum
 
@@ -99,7 +99,7 @@ def validate_input(file_or_transcript, api_key, use_gpt_4):
 
 
 def final_summary(text, llm):
-    prompt = PromptTemplate.from_template(final_summary)
+    prompt = PromptTemplate.from_template(final_summary_template)
     summary_prompt = prompt.format(text=text)
     summary = llm(summary_prompt)
     return summary
@@ -108,7 +108,7 @@ def final_summary(text, llm):
 def recommendations(text, llm):
     prompt = PromptTemplate(
         input_variables=["text"],
-        template=recommendations,
+        template=recommendations_template,
     )
     recommendations_prompt = prompt.format(text=text)
     summary = llm(recommendations_prompt)
