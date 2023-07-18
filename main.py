@@ -1,6 +1,8 @@
 import os
 import streamlit as st
 from langchain import PromptTemplate
+from langchain.chat_models import ChatOpenAI
+from langchain.prompts import SystemMessagePromptTemplate, ChatPromptTemplate, HumanMessagePromptTemplate
 
 import my_prompts
 from utils import (
@@ -99,9 +101,15 @@ def validate_input(file_or_transcript, api_key, use_gpt_4):
 
 
 def final_summary(text, llm):
-    prompt = PromptTemplate.from_template(final_summary_template)
-    summary_prompt = prompt.format(text=text)
-    summary = llm(summary_prompt)
+    template = "You are a helpful assistant."
+    system_message_prompt = SystemMessagePromptTemplate.from_template(template)
+
+    human_message_prompt = HumanMessagePromptTemplate.from_template(final_summary_template)
+    chat_prompt = ChatPromptTemplate.from_messages([system_message_prompt, human_message_prompt])
+
+    # get a chat completion from the formatted messages
+    prompt = chat_prompt.format_prompt(text=text).to_messages()
+    summary = llm(prompt)
     return summary
 
 
