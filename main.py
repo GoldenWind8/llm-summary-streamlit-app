@@ -61,6 +61,7 @@ def process_summarize_button(file_or_transcript, api_key, use_gpt_4, find_cluste
         st.markdown(summary, unsafe_allow_html=True)
 
         # Create another summary
+        st.markdown("## Summary")
         summary_final = final_summary(summary, llm)
         st.markdown(summary_final, unsafe_allow_html=True)
 
@@ -117,7 +118,7 @@ def recommendations(text, llm):
     template = "You are a helpful assistant."
     system_message_prompt = SystemMessagePromptTemplate.from_template(template)
 
-    human_message_prompt = HumanMessagePromptTemplate.from_template(final_summary_template)
+    human_message_prompt = HumanMessagePromptTemplate.from_template(recommendations_template)
     chat_prompt = ChatPromptTemplate.from_messages([system_message_prompt, human_message_prompt])
 
     # get a chat completion from the formatted messages
