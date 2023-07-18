@@ -19,7 +19,7 @@ def main():
 
     api_key = st.text_input("Enter API key")
     use_gpt_4 = st.checkbox("Use GPT-4 for the final prompt", value=True)
-    #find_clusters = st.checkbox('Find optimal clusters (experimental, could save on token usage)', value=False)
+    find_clusters = st.checkbox('Find optimal clusters (experimental, could save on token usage)', value=False)
 
     if st.button('Summarize'):
         process_summarize_button(uploaded_file, api_key, use_gpt_4, find_clusters)
