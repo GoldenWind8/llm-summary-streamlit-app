@@ -114,12 +114,15 @@ def final_summary(text, llm):
 
 
 def recommendations(text, llm):
-    prompt = PromptTemplate(
-        input_variables=["text"],
-        template=recommendations_template,
-    )
-    recommendations_prompt = prompt.format(text=text)
-    summary = llm(recommendations_prompt)
+    template = "You are a helpful assistant."
+    system_message_prompt = SystemMessagePromptTemplate.from_template(template)
+
+    human_message_prompt = HumanMessagePromptTemplate.from_template(final_summary_template)
+    chat_prompt = ChatPromptTemplate.from_messages([system_message_prompt, human_message_prompt])
+
+    # get a chat completion from the formatted messages
+    prompt = chat_prompt.format_prompt(text=text).to_messages()
+    summary = llm(prompt)
     return summary
 
 
