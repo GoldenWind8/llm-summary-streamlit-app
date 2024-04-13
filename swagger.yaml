@@ -3750,7 +3750,7 @@ paths:
             $ref: '#/definitions/RequestError'
       summary: Awards Kudos to registed user
       tags:
-      - v2
+      - solo
   /v2/kudos/transfer:
     post:
       operationId: post_transfer_kudos
